@@ -10,87 +10,97 @@
 
     <header>
         <div class="logo">
+            <img src="logo.jpg" alt="Proje Logo" class="site-logo">
             <h1>Siber Güvenlik Projesi</h1>
         </div>
         <nav>
-            <ul>
+            <ul id="menu-list">
                 <li><a href="#giris">Giriş</a></li>
                 <li><a href="#analiz">Analizler</a></li>
                 <li><a href="#cozumler">Korunma</a></li>
                 <li><a href="#ekip">Ekibimiz</a></li>
             </ul>
         </nav>
+        <button class="menu-toggle" aria-controls="menu-list" aria-expanded="false">
+            &#9776; 
+        </button>
     </header>
 
     <main>
         <section id="giris" class="ana-sayfa">
-            <h2>Sosyal Mühendislik ve Oltalama Nedir?</h2>
-            <p>Sosyal mühendislik, teknolojik araçlar kullanmadan, insanları kandırarak veya manipüle ederek gizli bilgilere erişme, belirli eylemleri gerçekleştirme veya sisteme sızma sanatıdır.
-			    <li>Oltalama: Siber suçluların, kendilerini meşru ve güvenilir bir kurum (Banka, sosyal medya, popüler e-ticaret siteleri, devlet kurumları) olarak göstererek, kullanıcıların kişisel ve finansal bilgilerini çalmaya çalıştığı aldatmacadır</li>.</p>
-            <button onclick="window.location.href='#analiz'">Analizlere Başla</button>
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <h2>İnsan Faktörü: Siber Güvenliğin En Zayıf Halkası</h2>
+                    <p>Projemiz, en yıkıcı siber saldırıların temelini oluşturan Sosyal Mühendislik ve Oltalama tekniklerini analiz ederek, etkili korunma stratejilerini görsel ve somut örneklerle sunmaktadır.</p>
+                    <button onclick="window.location.href='#analiz'">İncelemeye Başla</button>
+                </div>
+                <div class="visual-content">
+                    <img src="sosyal_muh_gorsel.jpg" alt="Sosyal Mühendislik İllüstrasyonu">
+                </div>
+            </div>
         </section>
 
         <section id="analiz" class="icerik-bolumu">
-            <h2>🔎 Saldırı Tekniklerinin Analizi</h2>
+            <h2>🔎 Saldırı Tekniklerinin Anatomisi</h2>
             <div class="teknik-kartlar">
                 <div class="kart">
                     <h3>Oltalama (Phishing)</h3>
-                    <p>E-posta veya sahte web siteleri aracılığıyla kimlik bilgilerini çalma taktikleri ve güncel örnekler.</p>
+                    <img src="oltalama_analiz.png" alt="Oltalama Şeması" class="kart-gorsel">
+                    <p>Sahte siteler ve acil çağrılarla kimlik avlama. Örnek: CEO Dolandırıcılığı.</p>
                 </div>
                 <div class="kart">
                     <h3>Kılık Değiştirme (Pretexting)</h3>
-                    <p>Önceden hazırlanan bir senaryo ile güven kazanarak hedeften bilgi sızdırma teknikleri.</p>
-                </div>
-                <div class="kart">
-                    <h3>Yemleme (Baiting)</h3>
-                    <p>Fiziksel medyalar (USB bellekler) veya cazip görünen dijital indirmelerle kullanıcıyı tuzağa çekme yöntemleri.</p>
+                    <img src="https://via.placeholder.com/300x180/007bff/ffffff?text=Pretexting+Analizi" alt="Kılık Değiştirme Analizi" class="kart-gorsel">
+                    <p>Güvenilir bir rol üstlenerek senaryo bazlı bilgi sızdırma teknikleri.</p>
                 </div>
             </div>
         </section>
 
         <section id="cozumler" class="korunma-bolumu">
-            <h2>🛡️ Etkili Korunma Yöntemleri</h2>
-            <div class="korunma-listesi">
-                <h4>Kullanıcı Eğitimi ve Farkındalık</h4>
-                <ul>
-                    <li>Şüpheli E-postaları tanıma kontrol listesi.</li>
-                    <li>URL'leri ve gönderici adreslerini doğrulama.</li>
-                </ul>
-                <h4>Teknolojik Çözümler</h4>
-                <ul>
-                    <li>Çok Faktörlü Kimlik Doğrulama (MFA) kullanımı.</li>
-                    <li>Güncel Antivirüs ve Ağ Güvenliği Yazılımları.</li>
-                </ul>
+            <h2>🛡️ 5 Adımda Etkili Korunma Yöntemleri</h2>
+            <div class="content-wrapper">
+                <div class="visual-content">
+                    <img src="korunma_kalkan.png" alt="Güvenlik Kalkanı" class="kalkan-gorseli">
+                </div>
+                <div class="text-content">
+                    <ol>
+                        <li>**URL Doğrulaması:** Linke tıklamadan önce fare ile üzerine gelerek adresi kontrol edin.</li>
+                        <li>**MFA Kullanımı:** Mutlaka Çok Faktörlü Kimlik Doğrulama kullanın.</li>
+                        <li>**Aciliyet Sorgulama:** Mesajın aciliyetini veya tehditkar tonunu sorgulayın.</li>
+                        <li>**Bilinmeyenleri Reddet:** Tanımadığınız göndericilerden gelen ekleri veya bağlantıları açmayın.</li>
+                        <li>**Şüpheli Bildirimi:** Şüpheli durumu derhal IT departmanınıza bildirin.</li>
+                    </ol>
+                </div>
             </div>
         </section>
 
         <section id="ekip" class="ekip-bolumu">
-            <h2>👨‍💻 Ekibimiz</h2>
+            <h2>👨‍💻 Proje Ekibimiz (5 Kişi)</h2>
             <div class="ekip-uyeleri">
-                <div class="uye-karti">
-                    <img src="https://via.placeholder.com/150" alt="Ekip Üyesi 1" class="profil-foto">
-                    <h3>Hüseyin AYKAL</h3>
-                    <p>Takım Lideri</p>
+                <div class="uye-karti lider">
+                    <img src="logo.jpg" alt="Proje Lideri Fotoğrafı" class="profil-foto">
+                    <h3>Mehmet Yılmaz</h3>
+                    <p>Proje Lideri & Sunum</p>
                 </div>
                 <div class="uye-karti">
-                    <img src="https://via.placeholder.com/150" alt="Ekip Üyesi 2" class="profil-foto">
-                    <h3>Mehmet Enes Aydın</h3>
+                    <img src="uye2.jpg" alt="Ekip Üyesi 2" class="profil-foto">
+                    <h3>Ayşe Kaya</h3>
                     <p>Teknik Analiz</p>
                 </div>
                 <div class="uye-karti">
-                    <img src="https://via.placeholder.com/150" alt="Ekip Üyesi 3" class="profil-foto">
-                    <h3>Mustafa Akay</h3>
-                    <p>HTML/CSS Geliştirme</p>
+                    <img src="uye3.jpg" alt="Ekip Üyesi 3" class="profil-foto">
+                    <h3>Can Demir</h3>
+                    <p>Geliştirme</p>
                 </div>
                 <div class="uye-karti">
-                    <img src="https://via.placeholder.com/150" alt="Ekip Üyesi 4" class="profil-foto">
-                    <h3>Ömer Tuğra</h3>
-                    <p>Araştırma ve İçerik</p>
+                    <img src="uye4.jpg" alt="Ekip Üyesi 4" class="profil-foto">
+                    <h3>Elif Tekin</h3>
+                    <p>Araştırma</p>
                 </div>
                 <div class="uye-karti">
-                    <img src="https://via.placeholder.com/150" alt="Ekip Üyesi 5" class="profil-foto">
-                    <h3>Fadıl Efe Çelik</h3>
-                    <p>Kapak ve Tasarım</p>
+                    <img src="uye5.jpg" alt="Ekip Üyesi 5" class="profil-foto">
+                    <h3>Burak Öztürk</h3>
+                    <p>Tasarım & Görselleştirme</p>
                 </div>
             </div>
         </section>
@@ -98,8 +108,17 @@
     </main>
 
     <footer>
-        <p>&copy; 2025. Siber Güvenlik Projesi.]</p>
+        <p>&copy; 2025. Siber Güvenlik Projesi. | Tüm Hakları Saklıdır.</p>
     </footer>
+
+    <script>
+        // Mobil menü açma/kapama işlevi
+        document.querySelector('.menu-toggle').onclick = function() {
+            document.getElementById('menu-list').classList.toggle('active');
+            var expanded = this.getAttribute('aria-expanded') === 'true' || false;
+            this.setAttribute('aria-expanded', !expanded);
+        };
+    </script>
 
 </body>
 </html>
