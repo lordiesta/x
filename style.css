@@ -1,0 +1,172 @@
+/* Temel Sıfırlamalar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Header ve Navigasyon */
+header {
+    background: #007bff; /* Mavi tonu */
+    color: white;
+    padding: 1rem 0;
+    position: sticky; /* Menüyü üste sabitler */
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: background 0.3s;
+}
+
+header nav ul li a:hover {
+    background: #0056b3; /* Koyu mavi hover rengi */
+    border-radius: 5px;
+}
+
+/* Genel Section Stili */
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* Ana Sayfa (Giriş) */
+.ana-sayfa {
+    background: #ffffff;
+    padding: 100px 20px;
+    border-bottom: 3px solid #007bff;
+}
+
+.ana-sayfa h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+.ana-sayfa p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.ana-sayfa button {
+    background: #28a745; /* Yeşil buton */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.ana-sayfa button:hover {
+    background: #1e7e34;
+}
+
+/* Analiz ve Teknik Kartlar */
+.icerik-bolumu {
+    background: #ffffff;
+}
+
+.icerik-bolumu h2 {
+    margin-bottom: 40px;
+}
+
+.teknik-kartlar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.kart {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.kart:hover {
+    transform: translateY(-5px);
+}
+
+.kart h3 {
+    color: #dc3545; /* Kırmızı tonu */
+    margin-bottom: 10px;
+}
+
+/* Ekip Bölümü */
+.ekip-bolumu {
+    background: #e9ecef;
+}
+
+.ekip-uyeleri {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.uye-karti {
+    width: 180px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.profil-foto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Yuvarlak fotoğraf */
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid #007bff;
+}
+
+.uye-karti h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.uye-karti p {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Footer */
+footer {
+    background: #343a40;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+}
