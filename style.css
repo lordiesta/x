@@ -362,21 +362,19 @@ footer {
         max-width: 180px;
     }
 }
-
-```css
 /* ==================================== */
-/* AKSİYON BÖLÜMÜ STİLİ */
+/* AKSİYON BÖLÜMÜ STİLİ (LOGO UYUMLU) */
 /* ==================================== */
 
 .aksiyon-bolumu {
-    background-color: var(--primary-color); /* Ana mavi renk */
+    background-color: var(--secondary-color); 
     color: white;
-    padding: 100px 5%; /* Daha geniş dikey dolgu */
+    padding: 100px 5%;
     text-align: center;
 }
 
 .aksiyon-bolumu h2 {
-    color: white; /* Başlık rengi beyaz */
+    color: white; 
     font-size: 2.5rem;
     margin-bottom: 15px;
 }
@@ -388,7 +386,8 @@ footer {
 
 .test-butonu {
     display: inline-block;
-    background-color: var(--accent-color); /* Vurgu Kırmızı */
+    /* Logonuzdaki canlı mavi rengi kullanır */
+    background-color: var(--primary-color); 
     color: white;
     text-decoration: none;
     padding: 15px 30px;
@@ -396,16 +395,17 @@ footer {
     font-weight: bold;
     border-radius: 8px;
     transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Hafif parlaması için gölge eklendi */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
 }
 
 .test-butonu:hover {
-    background-color: #a02030; /* Daha koyu kırmızı hover */
-    transform: translateY(-3px); /* Hafif yukarı kayma efekti */
+    background-color: #0056b3; /* Koyu Mavi hover */
+    transform: translateY(-3px);
 }
 
 /* ==================================== */
-/* MOBİL UYUMLULUK EKLEMESİ (Gerekliyse) */
+/* MOBİL UYUMLULUK EKLEMESİ */
 /* ==================================== */
 @media (max-width: 768px) {
     .aksiyon-bolumu {
@@ -417,5 +417,7 @@ footer {
     .test-butonu {
         font-size: 1.1rem;
         padding: 12px 20px;
+        width: 100%; /* Mobil cihazda tam genişlik */
+        box-sizing: border-box;
     }
 }
