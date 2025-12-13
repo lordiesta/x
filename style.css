@@ -1,273 +1,3 @@
-/* Temel Sıfırlamalar ve Değişkenler */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary-color: #007bff; /* Ana Mavi */
-    --secondary-color: #343a40; /* Koyu Gri (Logo uyumu) */
-    --accent-color: #dc3545; /* Vurgu Kırmızı (Uyarılar için) */
-    --light-bg: #f8f9fa; /* Açık arka plan */
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    background-color: var(--light-bg);
-    color: var(--secondary-color);
-    overflow-x: hidden;
-}
-
-/* Header ve Navigasyon */
-header {
-    background: var(--secondary-color);
-    color: white;
-    padding: 1rem 5%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.site-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 2px solid white;
-}
-
-header nav ul {
-    list-style: none;
-    display: flex;
-}
-
-header nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    display: block;
-    transition: background 0.3s;
-}
-
-header nav ul li a:hover {
-    background: #495057;
-    border-radius: 5px;
-}
-
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-/* Genel Section ve İçerik Yönetimi */
-section {
-    padding: 80px 5%;
-    min-height: 80vh;
-}
-
-h2 {
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    margin-bottom: 50px;
-    text-align: center;
-}
-
-.content-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.text-content {
-    flex: 1;
-    text-align: left;
-}
-
-.visual-content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.visual-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-}
-
-.ana-sayfa {
-    background: white;
-    padding: 120px 5%;
-}
-
-.ana-sayfa h2 {
-    font-size: 2.8rem;
-    color: var(--secondary-color);
-}
-
-.ana-sayfa button {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1.1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background 0.3s;
-}
-
-.ana-sayfa button:hover {
-    background: #0056b3;
-}
-
-/* Analiz Kartları */
-.icerik-bolumu {
-    background: var(--light-bg);
-}
-
-.teknik-kartlar {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.kart {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 0;
-    width: 350px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.kart:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-
-.kart h3 {
-    background-color: var(--accent-color);
-    color: white;
-    padding: 15px 0;
-    margin: 0;
-    font-size: 1.3rem;
-}
-
-.kart-gorsel {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
-.kart p {
-    padding: 20px;
-    font-size: 1rem;
-    color: #555;
-}
-
-/* Çözümler Bölümü */
-.korunma-bolumu {
-    background: #e9ecef;
-}
-
-.korunma-bolumu .content-wrapper {
-    flex-direction: row-reverse;
-}
-
-.korunma-bolumu ol {
-    list-style-position: inside;
-    text-align: left;
-    padding-left: 0;
-    /* Mobil düzeltme: Listeyi esnek yapısından çıkarıp tam genişlik vermesi için eklenmiştir */
-    width: 100%; 
-}
-
-.korunma-bolumu ol li {
-    background: white;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-left: 4px solid var(--primary-color);
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    word-wrap: break-word; /* Uzun kelimelerin satır atlamasını sağlar */
-    overflow-wrap: break-word;
-}
-
-.kalkan-gorseli {
-    max-width: 300px;
-}
-
-/* Ekip Bölümü */
-.ekip-bolumu {
-    background: white; /* Tekrar beyaz arka plan */
-}
-
-.ekip-uyeleri {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.uye-karti {
-    width: 150px;
-    padding: 15px;
-    background: var(--light-bg); /* Ekip kartları için açık gri arka plan */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    transition: all 0.3s;
-    text-align: center;
-}
-
-.uye-karti:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-}
-
-.profil-foto {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%; 
-    object-fit: cover;
-    margin-bottom: 10px;
-    border: 3px solid var(--primary-color);
-}
-
-.lider .profil-foto {
-    border: 3px solid var(--accent-color);
-}
-
-/* Footer */
-footer {
-    background: var(--secondary-color);
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0.9rem;
-}
-
 /* ==================================== */
 /* 📱 MOBİL UYUMLULUK (MEDIA QUERY) */
 /* ==================================== */
@@ -310,6 +40,7 @@ footer {
     }
 
     .content-wrapper {
+        /* Tüm bölümlerde (Giriş, Analiz, Korunma) içeriği alta yığ */
         flex-direction: column;
         text-align: center;
     }
@@ -317,6 +48,8 @@ footer {
     .visual-content, .text-content {
         flex: none;
         width: 100%;
+        padding: 0 10px; /* Kenarlardan biraz boşluk bırak */
+        box-sizing: border-box;
     }
 
     .visual-content img {
@@ -324,18 +57,18 @@ footer {
         max-width: 90%;
     }
 
-    /* Korunma Bölümü için özel düzeltme */
-    .korunma-bolumu .content-wrapper {
-        flex-direction: column; /* Görseli ve yazıyı dikey yığ */
-    }
-    
+    /* Korunma Bölümü için kritik düzeltme */
     .korunma-bolumu ol {
         text-align: left; /* Listeyi sola hizalı tut */
-        padding: 0 10px;
+        padding: 0; /* İç dolguyu sıfırla, böylece listedeki yazılar kenara yapışmaz */
         box-sizing: border-box;
+        margin-top: 20px; /* Görselden sonra boşluk bırak */
     }
 
     .korunma-bolumu ol li {
+        /* Ekranın dışına taşmayı engeller, yazıyı kırar */
+        word-wrap: break-word; 
+        overflow-wrap: break-word;
         width: 100%;
         box-sizing: border-box;
     }
