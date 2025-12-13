@@ -44,6 +44,7 @@ header {
     border-radius: 50%;
     margin-right: 10px;
     border: 2px solid white;
+    object-fit: cover;
 }
 
 header nav ul {
@@ -76,7 +77,7 @@ header nav ul li a:hover {
 /* Genel Section ve İçerik Yönetimi */
 section {
     padding: 80px 5%;
-    min-height: 80vh;
+    min-height: auto; /* Mobil uyumluluk için min-height kaldırıldı */
 }
 
 h2 {
@@ -196,19 +197,22 @@ h2 {
     flex-direction: row-reverse;
 }
 
-.korunma-bolumu ol {
+.korunma-listesi {
     list-style-position: inside;
     text-align: left;
     padding-left: 0;
+    /* Mobil düzeltme için ol etiketine özel sınıf tanımlandı */
 }
 
-.korunma-bolumu ol li {
+.korunma-listesi li {
     background: white;
     padding: 15px;
     margin-bottom: 10px;
     border-left: 4px solid var(--primary-color);
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
 }
 
 .kalkan-gorseli {
@@ -216,6 +220,10 @@ h2 {
 }
 
 /* Ekip Bölümü */
+.ekip-bolumu {
+    background: white;
+}
+
 .ekip-uyeleri {
     display: flex;
     justify-content: center;
@@ -227,7 +235,7 @@ h2 {
 .uye-karti {
     width: 150px;
     padding: 15px;
-    background: white;
+    background: var(--light-bg);
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
     transition: all 0.3s;
@@ -299,9 +307,11 @@ footer {
     /* Genel İçerik */
     h2 {
         font-size: 1.8rem;
+        margin-bottom: 30px;
     }
 
     .content-wrapper {
+        /* Mobil cihazlarda tüm içerik alt alta sıralanır */
         flex-direction: column;
         text-align: center;
     }
@@ -309,11 +319,31 @@ footer {
     .visual-content, .text-content {
         flex: none;
         width: 100%;
+        /* Kenar boşlukları ayarlanarak taşma engellendi */
+        padding: 0 10px; 
+        box-sizing: border-box;
     }
 
     .visual-content img {
         margin-top: 20px;
         max-width: 90%;
+    }
+    
+    /* Korunma Bölümü için Nihai Çözüm */
+    .korunma-bolumu .content-wrapper {
+        flex-direction: column; 
+    }
+    
+    .korunma-listesi {
+        /* Listeyi tam genişlikte zorlar, metinlerin sığmasını sağlar */
+        width: 100%;
+        text-align: left;
+        padding: 0;
+    }
+
+    .korunma-listesi li {
+        width: 100%;
+        box-sizing: border-box;
     }
 
     /* Kartlar ve Ekip Üyeleri */
