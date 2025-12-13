@@ -200,6 +200,8 @@ h2 {
     list-style-position: inside;
     text-align: left;
     padding-left: 0;
+    /* Mobil düzeltme: Listeyi esnek yapısından çıkarıp tam genişlik vermesi için eklenmiştir */
+    width: 100%; 
 }
 
 .korunma-bolumu ol li {
@@ -209,6 +211,8 @@ h2 {
     border-left: 4px solid var(--primary-color);
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    word-wrap: break-word; /* Uzun kelimelerin satır atlamasını sağlar */
+    overflow-wrap: break-word;
 }
 
 .kalkan-gorseli {
@@ -216,6 +220,10 @@ h2 {
 }
 
 /* Ekip Bölümü */
+.ekip-bolumu {
+    background: white; /* Tekrar beyaz arka plan */
+}
+
 .ekip-uyeleri {
     display: flex;
     justify-content: center;
@@ -227,7 +235,7 @@ h2 {
 .uye-karti {
     width: 150px;
     padding: 15px;
-    background: white;
+    background: var(--light-bg); /* Ekip kartları için açık gri arka plan */
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
     transition: all 0.3s;
@@ -314,6 +322,22 @@ footer {
     .visual-content img {
         margin-top: 20px;
         max-width: 90%;
+    }
+
+    /* Korunma Bölümü için özel düzeltme */
+    .korunma-bolumu .content-wrapper {
+        flex-direction: column; /* Görseli ve yazıyı dikey yığ */
+    }
+    
+    .korunma-bolumu ol {
+        text-align: left; /* Listeyi sola hizalı tut */
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .korunma-bolumu ol li {
+        width: 100%;
+        box-sizing: border-box;
     }
 
     /* Kartlar ve Ekip Üyeleri */
