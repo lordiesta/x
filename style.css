@@ -1,32 +1,49 @@
-/* Temel Sıfırlamalar */
+/* Temel Sıfırlamalar ve Değişkenler */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #007bff; /* Ana Mavi */
+    --secondary-color: #343a40; /* Koyu Gri (Logo uyumu) */
+    --accent-color: #dc3545; /* Vurgu Kırmızı (Uyarılar için) */
+    --light-bg: #f8f9fa; /* Açık arka plan */
+}
+
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: var(--light-bg);
+    color: var(--secondary-color);
+    overflow-x: hidden;
 }
 
 /* Header ve Navigasyon */
 header {
-    background: #007bff; /* Mavi tonu */
+    background: var(--secondary-color);
     color: white;
-    padding: 1rem 0;
-    position: sticky; /* Menüyü üste sabitler */
+    padding: 1rem 5%;
+    position: sticky;
     top: 0;
     z-index: 1000;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 
-header h1 {
-    font-size: 1.5rem;
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.site-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid white;
 }
 
 header nav ul {
@@ -43,90 +60,162 @@ header nav ul li a {
 }
 
 header nav ul li a:hover {
-    background: #0056b3; /* Koyu mavi hover rengi */
+    background: #495057;
     border-radius: 5px;
 }
 
-/* Genel Section Stili */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Genel Section ve İçerik Yönetimi */
 section {
-    padding: 60px 20px;
+    padding: 80px 5%;
+    min-height: 80vh;
+}
+
+h2 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 50px;
     text-align: center;
 }
 
-/* Ana Sayfa (Giriş) */
+.content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.text-content {
+    flex: 1;
+    text-align: left;
+}
+
+.visual-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.visual-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
 .ana-sayfa {
-    background: #ffffff;
-    padding: 100px 20px;
-    border-bottom: 3px solid #007bff;
+    background: white;
+    padding: 120px 5%;
 }
 
 .ana-sayfa h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    color: #007bff;
-}
-
-.ana-sayfa p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+    font-size: 2.8rem;
+    color: var(--secondary-color);
 }
 
 .ana-sayfa button {
-    background: #28a745; /* Yeşil buton */
+    background: var(--primary-color);
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 12px 25px;
+    font-size: 1.1rem;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
     transition: background 0.3s;
 }
 
 .ana-sayfa button:hover {
-    background: #1e7e34;
+    background: #0056b3;
 }
 
-/* Analiz ve Teknik Kartlar */
+/* Analiz Kartları */
 .icerik-bolumu {
-    background: #ffffff;
-}
-
-.icerik-bolumu h2 {
-    margin-bottom: 40px;
+    background: var(--light-bg);
 }
 
 .teknik-kartlar {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
 .kart {
-    background: #f8f9fa;
+    background: white;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    width: 300px;
-    text-align: left;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    border-radius: 12px;
+    padding: 0;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .kart:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
 .kart h3 {
-    color: #dc3545; /* Kırmızı tonu */
-    margin-bottom: 10px;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 15px 0;
+    margin: 0;
+    font-size: 1.3rem;
 }
 
-/* Ekip Bölümü */
-.ekip-bolumu {
+.kart-gorsel {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.kart p {
+    padding: 20px;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Çözümler Bölümü */
+.korunma-bolumu {
     background: #e9ecef;
 }
 
+.korunma-bolumu .content-wrapper {
+    flex-direction: row-reverse;
+}
+
+.korunma-bolumu ol {
+    list-style-position: inside;
+    text-align: left;
+    padding-left: 0;
+}
+
+.korunma-bolumu ol li {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.kalkan-gorseli {
+    max-width: 300px;
+}
+
+/* Ekip Bölümü */
 .ekip-uyeleri {
     display: flex;
     justify-content: center;
@@ -136,37 +225,110 @@ section {
 }
 
 .uye-karti {
-    width: 180px;
+    width: 150px;
     padding: 15px;
     background: white;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.uye-karti:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
 }
 
 .profil-foto {
     width: 100px;
     height: 100px;
-    border-radius: 50%; /* Yuvarlak fotoğraf */
+    border-radius: 50%; 
     object-fit: cover;
     margin-bottom: 10px;
-    border: 3px solid #007bff;
+    border: 3px solid var(--primary-color);
 }
 
-.uye-karti h3 {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-}
-
-.uye-karti p {
-    font-size: 0.9rem;
-    color: #6c757d;
+.lider .profil-foto {
+    border: 3px solid var(--accent-color);
 }
 
 /* Footer */
 footer {
-    background: #343a40;
+    background: var(--secondary-color);
     color: white;
     text-align: center;
-    padding: 15px 0;
+    padding: 20px 0;
     font-size: 0.9rem;
+}
+
+/* ==================================== */
+/* 📱 MOBİL UYUMLULUK (MEDIA QUERY) */
+/* ==================================== */
+
+@media (max-width: 768px) {
+    
+    /* Header ve Mobil Menü */
+    header {
+        padding: 1rem 15px;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    header nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background: var(--secondary-color);
+        padding: 10px 0;
+        text-align: center;
+    }
+    
+    header nav ul.active {
+        display: flex;
+    }
+
+    header nav ul li {
+        width: 100%;
+        border-top: 1px solid #495057;
+    }
+    
+    /* Genel İçerik */
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .visual-content, .text-content {
+        flex: none;
+        width: 100%;
+    }
+
+    .visual-content img {
+        margin-top: 20px;
+        max-width: 90%;
+    }
+
+    /* Kartlar ve Ekip Üyeleri */
+    .teknik-kartlar, .ekip-uyeleri {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .kart {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .uye-karti {
+        width: 45%;
+        max-width: 180px;
+    }
 }
