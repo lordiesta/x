@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kargo Ekle</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        form { max-width: 400px; margin: auto; }
+        input, select { width: 100%; padding: 10px; margin: 5px 0; }
+        button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Yeni Kargo Oluştur</h2>
+    <form method="POST">
+        <input type="text" name="takip_no" placeholder="Takip No (Örn: 101)" required>
+        <input type="text" name="gonderici" placeholder="Gönderici Adı" required>
+        <input type="text" name="alici" placeholder="Alıcı Adı" required>
+        <input type="number" name="desi" placeholder="Desi (Ağırlık)" required>
+        
+        <label>Kargo Tipi:</label>
+        <select name="tip" id="tipSecimi" onchange="toggleKurye()">
+            <option value="standart">Standart Kargo</option>
+            <option value="ekspres">Ekspres Kargo</option>
+        </select>
+
+        <div id="kuryeDiv" style="display:none;">
+            <label><input type="checkbox" name="kurye"> Kurye Adresten Alsın (+40 TL)</label>
+        </div>
+
+        <button type="submit">Kargoyu Kaydet</button>
+        <p><a href="/">Ana Menüye Dön</a></p>
+    </form>
+
+    <script>
+        function toggleKurye() {
+            var secim = document.getElementById("tipSecimi").value;
+            var div = document.getElementById("kuryeDiv");
+            div.style.display = (secim === "ekspres") ? "block" : "none";
+        }
+    </script>
+</body>
+</html>

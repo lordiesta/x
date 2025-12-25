@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kargo Takip</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        .box { border: 1px solid #ddd; padding: 20px; border-radius: 8px; background: #fff; margin-top: 20px;}
+        .history { background: #f9f9f9; padding: 10px; margin-top: 10px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h2>🔍 Kargo Takip & İşlem</h2>
+    
+    <form method="POST">
+        <input type="text" name="takip_no" placeholder="Takip Numarası Girin" required style="padding:10px; width:70%;">
+        <button type="submit" style="padding:10px;">Sorgula</button>
+    </form>
+
+    {% if kargo %}
+    <div class="box">
+        <h3>📦 Kargo Detayları: {{ kargo.takip_no }}</h3>
+        <p><strong>Alıcı:</strong> {{ kargo.alici }}</p>
+        <p><strong>Durum:</strong> <span style="color:blue; font-weight:bold;">{{ kargo.durum }}</span></p>
+        <p><strong>Ücret:</strong> {{ kargo.ucret_hesapla() }} TL</p>
+        
+        <h4>📋 Hareket Geçmişi:</h4>
+        <div class="history">
+            {% for islem in kargo.gecmis %}
+                <div>{{ islem }}</div>
+            {% endfor %}
+        </div>
+
+        <hr>
+        <h4>🛠 Durum Güncelle</h4>
+        <form method="POST">
+            <input type="hidden" name="takip_no" value="{{ kargo.takip_no }}">
+            <select name="yeni_durum">
+                <option value="Yolda">Yolda</option>
+                <option value="Dağıtıma Çıktı">Dağıtıma Çıktı</option>
+                <option value="Teslim Edildi">Teslim Edildi</option>
+            </select>
+            <button type="submit">Güncelle</button>
+        </form>
+    </div>
+    {% endif %}
+    
+    <p><a href="/">Ana Menüye Dön</a></p>
+</body>
+</html>
