@@ -1,48 +1,315 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-    <title>Lider Kargo Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lider Kargo - Web Panel</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #333; color: white; }
-        .btn { display: inline-block; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; }
-        .btn-blue { background: #007bff; }
+        /* CSS TASARIM BÖLÜMÜ */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
+        .header { background-color: #2c3e50; color: white; padding: 20px; text-align: center; }
+        .nav { display: flex; justify-content: center; background: #34495e; padding: 10px; }
+        .nav button { background: none; border: none; color: white; padding: 10px 20px; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        .nav button:hover { background-color: #1abc9c; border-radius: 5px; }
+        
+        .container { max-width: 900px; margin: 20px auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .page { display: none; } /* Sayfalar varsayılan olarak gizli */
+        .active { display: block; animation: fadeIn 0.5s; } /* Sadece aktif olan görünür */
+
+        input, select, button.action-btn { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button.action-btn { background-color: #27ae60; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button.action-btn:hover { background-color: #2ecc71; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        
+        .log-box { background: #f9f9f9; padding: 15px; border-left: 5px solid #3498db; margin-top: 15px; font-size: 0.9em; }
+        .badge-std { background: #95a5a6; color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; }
+        .badge-exp { background: #e74c3c; color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📦 Lider Kargo Yönetim Paneli</h1>
-        <a href="/ekle" class="btn">➕ Yeni Kargo Ekle</a>
-        <a href="/takip" class="btn btn-blue">🔍 Kargo Sorgula / Güncelle</a>
-        
-        <h3>Sistemdeki Kargolar</h3>
-        <table>
-            <tr>
-                <th>Takip No</th>
-                <th>Gönderici -> Alıcı</th>
-                <th>Tür</th>
-                <th>Fiyat</th>
-                <th>Durum</th>
-            </tr>
-            {% for kargo in kargolar %}
-            <tr>
-                <td>{{ kargo.takip_no }}</td>
-                <td>{{ kargo.gonderici }} -> {{ kargo.alici }}</td>
-                <td>
-                    {% if kargo.__class__.__name__ == 'EkspresKargo' %}
-                        🚀 Ekspres
-                    {% else %}
-                        🚛 Standart
-                    {% endif %}
-                </td>
-                <td>{{ kargo.ucret_hesapla() }} TL</td>
-                <td>{{ kargo.durum }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+
+    <div class="header">
+        <h1>📦 Lider Kargo Lojistik Sistemi</h1>
     </div>
+
+    <div class="nav">
+        <button onclick="sayfaGoster('ekle')">➕ Yeni Kargo</button>
+        <button onclick="sayfaGoster('takip')">🔍 Sorgula & Güncelle</button>
+        <button onclick="sayfaGoster('liste')">📋 Tüm Liste</button>
+    </div>
+
+    <div class="container">
+        
+        <div id="ekle" class="page active">
+            <h2>Yeni Kargo Oluştur</h2>
+            <form id="kargoForm" onsubmit="kargoEkle(event)">
+                <input type="text" id="takipNo" placeholder="Takip Numarası (Örn: 1001)" required>
+                <input type="text" id="gonderici" placeholder="Gönderici Adı" required>
+                <input type="text" id="alici" placeholder="Alıcı Adı" required>
+                <input type="number" id="desi" placeholder="Desi (Ağırlık)" required>
+                
+                <label>Kargo Tipi:</label>
+                <select id="tip" onchange="tipDegisti()">
+                    <option value="standart">Standart Kargo</option>
+                    <option value="ekspres">Ekspres Kargo</option>
+                </select>
+
+                <div id="ekspresDiv" style="display:none; background:#fff3cd; padding:10px; border-radius:5px;">
+                    <label><input type="checkbox" id="kurye"> 🏍️ Kurye adresten alsın (+40 TL)</label>
+                </div>
+
+                <button type="submit" class="action-btn">Kaydet ve Hesapla</button>
+            </form>
+        </div>
+
+        <div id="takip" class="page">
+            <h2>Kargo Sorgula & Yönet</h2>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="sorguNo" placeholder="Takip No Girin...">
+                <button onclick="sorgula()" class="action-btn" style="width: 20%;">Bul</button>
+            </div>
+            
+            <div id="sonucAlani" style="display:none; margin-top:20px;">
+                <h3 id="detayBaslik"></h3>
+                <p><strong>Gönderici:</strong> <span id="detayGonderici"></span></p>
+                <p><strong>Alıcı:</strong> <span id="detayAlici"></span></p>
+                <p><strong>Tutar:</strong> <span id="detayTutar" style="color:green; font-weight:bold;"></span> TL</p>
+                <p><strong>Son Durum:</strong> <span id="detayDurum" style="color:blue; font-weight:bold;"></span></p>
+                
+                <div class="log-box" id="detayGecmis">
+                    </div>
+
+                <hr>
+                <h4>Durum Güncelle</h4>
+                <div style="display:flex; gap:10px;">
+                    <select id="yeniDurumSecim">
+                        <option value="Yolda">🚛 Yolda</option>
+                        <option value="Dağıtıma Çıktı">📦 Dağıtıma Çıktı</option>
+                        <option value="Teslim Edildi">✅ Teslim Edildi</option>
+                    </select>
+                    <button onclick="durumGuncelle()" class="action-btn" style="width:30%;">Güncelle</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="liste" class="page">
+            <h2>Tüm Kargolar</h2>
+            <button onclick="listeyiYenile()" style="background:#3498db; color:white; border:none; padding:5px; cursor:pointer; float:right;">Yenile</button>
+            <table id="kargoTablosu">
+                <thead>
+                    <tr>
+                        <th>Takip No</th>
+                        <th>Alıcı</th>
+                        <th>Tip</th>
+                        <th>Tutar</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================
+        // 1. SINIF TASARIMLARI (Back-end Mantığı)
+        // ============================================
+
+        // Base Class (Ana Sınıf)
+        class Kargo {
+            constructor(takipNo, gonderici, alici, desi) {
+                this.takipNo = takipNo;
+                this.gonderici = gonderici;
+                this.alici = alici;
+                this.desi = Number(desi);
+                this.durum = "Oluşturuldu";
+                this.gecmis = [`${new Date().toLocaleTimeString()} - Sistem: Kayıt oluşturuldu.`];
+                this.islemKilidi = false;
+            }
+
+            // Polymorphism için boş metod
+            ucretHesapla() { return 0; }
+
+            durumGuncelle(yeniDurum) {
+                if (this.islemKilidi) {
+                    alert("Bu kargo teslim edildiği için artık işlem yapılamaz!");
+                    return false;
+                }
+                this.durum = yeniDurum;
+                this.gecmis.push(`${new Date().toLocaleTimeString()} - Durum: ${yeniDurum}`);
+                
+                if (yeniDurum === "Teslim Edildi") {
+                    this.islemKilidi = true;
+                    this.gecmis.push(`${new Date().toLocaleTimeString()} - Dosya Kapatıldı.`);
+                }
+                return true;
+            }
+        }
+
+        // Sub Class (Alt Sınıf) - Standart
+        class StandartKargo extends Kargo {
+            ucretHesapla() {
+                return this.desi * 15; // Desi başı 15 TL
+            }
+            getTip() { return "Standart"; }
+        }
+
+        // Sub Class (Alt Sınıf) - Ekspres
+        class EkspresKargo extends Kargo {
+            constructor(takipNo, gonderici, alici, desi, kuryeVarMi) {
+                super(takipNo, gonderici, alici, desi);
+                this.kuryeVarMi = kuryeVarMi;
+            }
+            ucretHesapla() {
+                let fiyat = (this.desi * 25) + 60; // Desi başı 25 TL + 60 Sabit
+                if (this.kuryeVarMi) fiyat += 40; // Kurye farkı
+                return fiyat;
+            }
+            getTip() { return "Ekspres"; }
+        }
+
+        // ============================================
+        // 2. VERİ YÖNETİMİ (Database Simülasyonu)
+        // ============================================
+        const kargoDB = []; // Tüm kargolar burada saklanır (RAM'de)
+
+        // ============================================
+        // 3. ARAYÜZ FONKSİYONLARI (Frontend Glue)
+        // ============================================
+
+        // Sayfa Geçişleri
+        function sayfaGoster(sayfaId) {
+            document.querySelectorAll('.page').forEach(div => div.classList.remove('active'));
+            document.getElementById(sayfaId).classList.add('active');
+            if(sayfaId === 'liste') listeyiYenile();
+        }
+
+        // Formdaki Kargo Tipi değişince
+        function tipDegisti() {
+            const tip = document.getElementById('tip').value;
+            document.getElementById('ekspresDiv').style.display = (tip === 'ekspres') ? 'block' : 'none';
+        }
+
+        // Kargo Ekleme İşlemi
+        function kargoEkle(e) {
+            e.preventDefault(); // Sayfanın yenilenmesini engelle
+
+            const no = document.getElementById('takipNo').value;
+            
+            // Aynı numara var mı kontrolü
+            if (kargoDB.find(k => k.takipNo === no)) {
+                alert("Hata: Bu takip numarası zaten var!");
+                return;
+            }
+
+            const gonderici = document.getElementById('gonderici').value;
+            const alici = document.getElementById('alici').value;
+            const desi = document.getElementById('desi').value;
+            const tip = document.getElementById('tip').value;
+
+            let yeniKargo;
+            
+            // Factory Pattern (Hangi sınıfı üreteceğimize karar veriyoruz)
+            if (tip === 'standart') {
+                yeniKargo = new StandartKargo(no, gonderici, alici, desi);
+            } else {
+                const kurye = document.getElementById('kurye').checked;
+                yeniKargo = new EkspresKargo(no, gonderici, alici, desi, kurye);
+            }
+
+            kargoDB.push(yeniKargo);
+            alert(`Kargo Eklendi! Hesaplanan Ücret: ${yeniKargo.ucretHesapla()} TL`);
+            
+            // Formu temizle
+            document.getElementById('kargoForm').reset();
+            document.getElementById('ekspresDiv').style.display = 'none';
+        }
+
+        // Kargo Sorgulama İşlemi
+        let seciliKargo = null; // Şu an ekranda hangi kargo açık?
+
+        function sorgula() {
+            const no = document.getElementById('sorguNo').value;
+            const kargo = kargoDB.find(k => k.takipNo === no);
+            
+            const sonucDiv = document.getElementById('sonucAlani');
+
+            if (!kargo) {
+                alert("Kargo bulunamadı!");
+                sonucDiv.style.display = 'none';
+                seciliKargo = null;
+                return;
+            }
+
+            seciliKargo = kargo;
+            sonucDiv.style.display = 'block';
+            detaylariGuncelle();
+        }
+
+        // Detay Ekranını Yenileme
+        function detaylariGuncelle() {
+            if (!seciliKargo) return;
+
+            document.getElementById('detayBaslik').innerText = `Takip No: ${seciliKargo.takipNo} (${seciliKargo.getTip()})`;
+            document.getElementById('detayGonderici').innerText = seciliKargo.gonderici;
+            document.getElementById('detayAlici').innerText = seciliKargo.alici;
+            document.getElementById('detayTutar').innerText = seciliKargo.ucretHesapla();
+            document.getElementById('detayDurum').innerText = seciliKargo.durum;
+
+            // Geçmişi Listele
+            const logBox = document.getElementById('detayGecmis');
+            logBox.innerHTML = "";
+            seciliKargo.gecmis.forEach(log => {
+                logBox.innerHTML += `<div>👉 ${log}</div>`;
+            });
+        }
+
+        // Durum Güncelleme Butonu
+        function durumGuncelle() {
+            if (!seciliKargo) return;
+            const yeniDurum = document.getElementById('yeniDurumSecim').value;
+            
+            if (seciliKargo.durumGuncelle(yeniDurum)) {
+                detaylariGuncelle(); // Ekranı tazele
+                alert("Durum güncellendi.");
+            }
+        }
+
+        // Tüm Listeyi Tabloya Dökme
+        function listeyiYenile() {
+            const tbody = document.querySelector('#kargoTablosu tbody');
+            tbody.innerHTML = "";
+
+            if (kargoDB.length === 0) {
+                tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Kayıtlı kargo yok.</td></tr>";
+                return;
+            }
+
+            kargoDB.forEach(k => {
+                const tipBadge = k.getTip() === 'Ekspres' 
+                    ? `<span class='badge-exp'>Ekspres</span>` 
+                    : `<span class='badge-std'>Standart</span>`;
+
+                const row = `
+                    <tr>
+                        <td>${k.takipNo}</td>
+                        <td>${k.alici}</td>
+                        <td>${tipBadge}</td>
+                        <td>${k.ucretHesapla()} TL</td>
+                        <td>${k.durum}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+    </script>
 </body>
 </html>
